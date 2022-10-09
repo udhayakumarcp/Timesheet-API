@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(dbgenerated("concat('YT', nextval('User_id_seq' :: regclass))"))
+  name      String
+  email     String   @unique
+  relieved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Task      Task[]
+}
+
+// model Project {
+//   id        Int      @id @default(autoincrement())
+//   name      String   @unique
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Task      Task[]
+// }
+
+// model TaskType {
+//   id        Int      @id @default(autoincrement())
+//   type      String   @unique
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Task      Task[]
+// }
+
+// model Task {
+//   id        Int      @id @default(autoincrement())
+//   project   Project  @relation(fields: [projectId], references: [id])
+//   projectId Int
+//   name      Users     @relation(fields: [userId], references: [id])
+//   userId    Int
+//   date      DateTime
+//   workFrom  String
+//   phase     TaskType @relation(fields: [phaseId], references: [id])
+//   phaseId   Int
+//   task      String
+//   duration  DateTime
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
